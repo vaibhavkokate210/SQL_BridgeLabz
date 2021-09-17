@@ -1,0 +1,90 @@
+/*UC1*/
+
+create database addressbookservice;
+show databases;
+use addressbookservice;
+
+
+/*UC2*/
+
+create table addressbook
+(
+id Int unsigned NOT NULL AUTO_INCREMENT,
+firstname Varchar(20) NOT NULL,
+lastname Varchar(20) NOT NULL,
+address Varchar(100) NOT NULL,
+city Varchar(20) NOT NULL,
+state Varchar(20) NOT NULL,
+zip Int NOT NULL,
+phonenumber BIGINT NOT NULL,
+email Varchar(30) NOT NULL,
+PRIMARY KEY (id)
+);
+
+
+/*UC3*/
+
+insert into addressbook(firstname,lastname,address,city,state,zip,phonenumber,email) values
+('Vaibhav','Kokate','Mali galli','Tasgaon','Maharashtra',416312,9876786545,'vaibhav123@gmail.com'),
+('Pritesh','Bhangale','Ram Society','Dombvali','Maharashtra',4003567,7067423487,'pritesh23@gmail.com'),
+('Nikhil','Musale','Green park','Chandrapur','Maharashtra',434563,8976872345,'nikhil98@gmail.com'),
+('Ajay','Bhosale','Vaduj','Satara','Maharashtra',402343,9856346568,'ajaybhosale@gmail.com'),
+('Rohit','Patil','Jivan nagar','Sangli','Maharashtra',416312,9234588968,'rohitpatil@gmail.com');
+
+
+/*UC4*/
+
+update addressbook set address = 'classic society' where firstname = 'Ajay' and lastname = 'Bhosale';
+update addressbook set zip = 402123 where firstname = 'Rohit' and lastname = 'Patil';
+select * from addressbook;
+
+
+/*UC5*/
+
+delete from addressbook where firstname = 'Vaibhav' and lastname = 'Kokate';
+set @autoid := 0;
+update addressbook set id = (@autoid := @autoid +1);
+select * from addressbook;
+
+
+/*UC6*/
+
+select * from addressbook where city = 'Satara';
+select * from addressbook where state = 'Maharashtra';
+
+
+/*UC7*/
+
+select count(*) from addressbook where city = 'Tasgaon';
+select count(*) from addressbook where city = 'Dombavali';
+select count(*) from addressbook group by city;
+select count(*) from addressbook group by state;
+select count(*) from addressbook where state = 'Maharashtra';
+
+
+/*UC8*/
+
+select firstname,lastname from addressbook where city='Sangli' order by city asc;
+select firstname,lastname,city from addressbook order by city asc;
+
+
+/*UC9*/
+
+alter table addressbook add type Varchar(20) NOT NULL;
+select * from addressbook;
+update addressbook set type = 'Friend' where firstname = 'Nikhil';
+update addressbook set type = 'Family' where firstname = 'Ajay';
+select * from addressbook;
+
+
+/*UC10*/
+
+select type,count(*) from addressbook where type = 'Friend';
+select type,count(*) from addressbook where type = 'Family';
+
+
+/*UC11*/
+
+insert into addressbook(firstname,lastname,address,city,state,zip,phonenumber,email,type) values
+('Vinay','Patil','kailash complex','Pune','Maharashtra',452330,9876543247,'vinay@gmail.com','Family');
+select * from addressbook;
